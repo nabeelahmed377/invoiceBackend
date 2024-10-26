@@ -1,5 +1,5 @@
 import express from "express";
-import invoice from "../models/invoiceModel.js";
+import invoice from "../model/invoiceModel.js";
 import connectDB from "../utils/dbConnect.js";
 
 const app = express();
