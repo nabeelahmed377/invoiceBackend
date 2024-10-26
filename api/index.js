@@ -3,10 +3,9 @@ import invoice from "../model/invoiceModel.js";
 import connectDB from "../utils/dbConnect.js";
 
 const app = express();
-
+connectDB();
 app.get("/", async (req, res) => {
   try {
-    await connectDB(); // Connect to DB before handling the request
     const invoices = await invoice.find();
     res.status(200).json({
       status: true,
@@ -19,6 +18,79 @@ app.get("/", async (req, res) => {
       message: "Internal Server Error",
       error,
     });
+  }
+});
+
+app.post("/", async (req, res) => {
+  try {
+    const newInvoice = new invoice(req.body);
+    const savedInvoice = await newInvoice.save();
+    return res.status(200).json({
+      status: true,
+      message: "Invoice added successfully",
+      data: savedInvoice,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      status: false,
+      message: "Internal Server Error",
+      error,
+    });
+  }
+});
+
+app.get("/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const getSingle = await invoice.findById(id);
+    res.status(200).json({
+      status: true,
+      message: "Invoice Found",
+      data: getSingle,
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: false,
+      message: "Internal Server Error",
+      error,
+    });
+  }
+});
+
+app.put("/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const updateInv = await invoice.findByIdAndUpdate(
+      id,
+      { $set: req.body },
+      { new: true }
+    );
+    res.status(200).json({
+      status: true,
+      message: "Invoice Update Successfully",
+      data: updateInv,
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: false,
+      message: "Internal Server Error",
+      error,
+    });
+  }
+});
+
+app.delete("/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const deleteInv = await Invoice.findByIdAndDelete(id);
+    res.status(200).json({
+      status: true,
+      message: "Invoice Delete Successfully",
+    });
+  } catch (error) {
+    res
+      .status(404)
+      .json({ status: false, message: "Record Not Deleted", error });
   }
 });
 
