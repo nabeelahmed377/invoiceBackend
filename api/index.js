@@ -9,7 +9,7 @@ app.get("/", async (req, res) => {
     const invoices = await invoice.find();
     res.status(200).json({
       status: true,
-      message: "All Invoices Found",
+      message: "All Invoices Foundsssssss",
       data: invoices,
     });
   } catch (error) {
