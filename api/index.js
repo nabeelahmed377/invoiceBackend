@@ -39,7 +39,7 @@ app.get("/api/invoices", async (req, res) => {
   }
 });
 
-app.post("/", async (req, res) => {
+app.post("/api/invoices", async (req, res) => {
   try {
     const newInvoice = new invoice(req.body);
     const savedInvoice = await newInvoice.save();
@@ -83,7 +83,7 @@ app.get("/api/invoices/:id", async (req, res) => {
   }
 });
 
-app.put("/:id", async (req, res) => {
+app.put("/api/invoices/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const updateInv = await invoice.findByIdAndUpdate(
@@ -112,7 +112,7 @@ app.put("/:id", async (req, res) => {
   }
 });
 
-app.delete("/:id", async (req, res) => {
+app.delete("/api/invoices/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const deleteInv = await invoice.findByIdAndDelete(id);
