@@ -5,14 +5,7 @@ import cors from "cors";
 
 const app = express();
 
-// Enable CORS
-app.use(
-  cors({
-    origin: "https://aagraphicsinvoice.netlify.app",
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    credentials: true,
-  })
-);
+app.use(cors({ origin: "*" }));
 
 app.options("*", cors()); // Preflight requests
 app.use(express.json()); // Parse JSON payloads
