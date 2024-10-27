@@ -21,7 +21,7 @@ app.use(express.json()); // Parse JSON payloads
 connectDB();
 
 // Routes
-app.get("/", async (req, res) => {
+app.get("/api/invoices", async (req, res) => {
   try {
     const invoices = await invoice.find();
     res.status(200).json({
@@ -58,7 +58,7 @@ app.post("/", async (req, res) => {
   }
 });
 
-app.get("/:id", async (req, res) => {
+app.get("/api/invoices/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const getSingle = await invoice.findById(id);
