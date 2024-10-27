@@ -1,8 +1,18 @@
 import express from "express";
 import invoice from "../model/invoiceModel.js";
 import connectDB from "../utils/dbConnect.js";
+import cors from "cors";
 
 const app = express();
+
+app.use(
+  cors({
+    origin: "http://localhost:5173", // Allow requests from your frontend URL
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+  })
+);
+
 connectDB();
 app.get("/", async (req, res) => {
   try {
