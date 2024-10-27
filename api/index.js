@@ -8,7 +8,7 @@ const app = express();
 // Enable CORS
 app.use(
   cors({
-    origin: "*",
+    origin: "https://aagraphicsinvoice.netlify.app",
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   })
