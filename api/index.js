@@ -7,11 +7,13 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173", // Allow requests from your frontend URL
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    credentials: true,
+    origin: "http://localhost:5173", // Allow requests from this origin
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allow specified HTTP methods
+    credentials: true, // Allow cookies and other credentials
   })
 );
+
+app.options("*", cors());
 
 connectDB();
 app.get("/", async (req, res) => {
